@@ -1,30 +1,17 @@
+/*
+* Asive Madladla 217068332
+* Employee Class
+ */
 public class Employee {
-    private String id;
-    private String name;
-    private String department;
+    private String id, name, department;
     private double monthlySalary;
 
-    public Employee(String id, String name, String department, double monthlySalary) {
-        this.id = id;
-        this.name = name;
-        this.department = department;
-        this.monthlySalary = monthlySalary;
-    }
+    private Employee (Builder builder){
+        this.id = builder.id;
+        this.name = builder.name;
+        this.department = builder.department;
+        this.monthlySalary = builder.monthlySalary;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public void setMonthlySalary(double monthlySalary) {
-        this.monthlySalary = monthlySalary;
     }
 
     public String getId() {
@@ -43,13 +30,38 @@ public class Employee {
         return monthlySalary;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", department='" + department + '\'' +
-                ", monthlySalary=" + monthlySalary +
-                '}';
+    public static class Builder {
+        private String id, name, department;
+        private double monthlySalary;
+
+        public Builder id(String id) {
+
+            this.id = id;
+            return this;
+
+        }
+
+        public Builder name(String name) {
+
+            this.name = name;
+            return this;
+        }
+
+        public Builder department(String department) {
+
+            this.department = department;
+            return this;
+        }
+
+        public Builder monthlySalary(double monthlySalary) {
+
+            this.monthlySalary = monthlySalary;
+            return this;
+        }
+        public Employee build(){
+            return new Employee(this);
+
+        }
     }
 }
+
