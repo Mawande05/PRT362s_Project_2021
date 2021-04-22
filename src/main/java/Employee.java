@@ -1,67 +1,82 @@
-/*
-* Asive Madladla 217068332
-* Employee Class
+/**
+ *
+ * @author Asive madladla 217068332
+ * employee class
+ * serialization
  */
-public class Employee {
-    private String id, name, department;
-    private double monthlySalary;
 
-    private Employee (Builder builder){
-        this.id = builder.id;
-        this.name = builder.name;
-        this.department = builder.department;
-        this.monthlySalary = builder.monthlySalary;
 
+import java.io.Closeable;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+
+public class Employee implements Serializable {
+
+    private String id;
+    private String department;
+    private String name;
+    private double salary;
+
+    public Employee(String id, String department,String name, double salary) {
+        this.id = id;
+        this.department = department;
+        this.name = name;
+        this.salary = salary;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getDepartment() {
         return department;
     }
 
-    public double getMonthlySalary() {
-        return monthlySalary;
+    public String getName() {
+        return name;
     }
 
-    public static class Builder {
-        private String id, name, department;
-        private double monthlySalary;
+    public double getSalary() {
+        return salary;
+    }
+    public void set (String id, String department,String name, double salary){
+        this.id = id;
+        this.department = department;
+        this.name = name;
+        this.salary = salary;
 
-        public Builder id(String id) {
-
-            this.id = id;
-            return this;
-
+    }
+    public void close(Closeable c) {
+        if (c == null)
+            return;
+        try {
+            c.close();
+        } catch (IOException e) {
+            //log the exception
         }
+    }
+    public boolean saveToFile() {
+        FileOutputStream fileOut = null;
+        ObjectOutputStream out = null;
+        boolean success = true;
+        try {
+            fileOut = new FileOutputStream("Empoyee.ser");
+            out = new ObjectOutputStream(fileOut);
 
-        public Builder name(String name) {
-
-            this.name = name;
-            return this;
+            out.writeObject(this);
         }
-
-        public Builder department(String department) {
-
-            this.department = department;
-            return this;
+        catch  (IOException e) {
+            success = false;
+            e.printStackTrace();
         }
-
-        public Builder monthlySalary(double monthlySalary) {
-
-            this.monthlySalary = monthlySalary;
-            return this;
+        finally {
+            close(out);
+            close(fileOut);
         }
-        public Employee build(){
-            return new Employee(this);
-
-        }
+        return success;
     }
 }
 
