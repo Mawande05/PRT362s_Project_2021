@@ -4,7 +4,7 @@
  * employee class
  * serialization
  */
-
+package employeegui;
 
 import java.io.Closeable;
 import java.io.FileOutputStream;
@@ -51,7 +51,7 @@ public class Employee implements Serializable {
     }
     public void close(Closeable c) {
         if (c == null)
-            return;
+         return;
         try {
             c.close();
         } catch (IOException e) {
