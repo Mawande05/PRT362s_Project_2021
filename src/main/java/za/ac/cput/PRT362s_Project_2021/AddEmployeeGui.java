@@ -109,8 +109,8 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
 
         lblAddress.setFont(font2);
         txtAddress.setFont(font2);
-        //panelCenter.add(lblAddress);
-        //panelCenter.add(txtAddress);
+        panelCenter.add(lblAddress);
+        panelCenter.add(txtAddress);
 
         btnSubmit.setFont(font2);
         panelSouth.add(btnSubmit);
