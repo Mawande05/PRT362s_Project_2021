@@ -43,22 +43,22 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
         panelSouth = new JPanel();
 
         lblHeader = new JLabel("Add new employee");
-        lblEmpId = new JLabel("Employee ID: ");
+        lblEmpId = new JLabel("Employee ID: ",SwingConstants.RIGHT);
         txtEmpId = new JTextField();
 
-        lblFirstname = new JLabel("First Name: ");
+        lblFirstname = new JLabel("First Name: ",SwingConstants.RIGHT);
         txtFirstname = new JTextField();
-        lblSurname = new JLabel("Surname: ");
+        lblSurname = new JLabel("Surname: ",SwingConstants.RIGHT);
         txtSurname = new JTextField();
 
-        lblDateOfBirth = new JLabel("Date Of Birth: ");
+        lblDateOfBirth = new JLabel("Date Of Birth: ", SwingConstants.RIGHT);
         txtDateOfBirth = new JTextField();
-        lblPhoneNumber = new JLabel("Phone Number: ");
+        lblPhoneNumber = new JLabel("Phone Number: ",SwingConstants.RIGHT);
         txtPhoneNumber = new JTextField();
 
-        lblEmail = new JLabel("Email: ");
+        lblEmail = new JLabel("Email: ",SwingConstants.RIGHT);
         txtEmail = new JTextField();
-        lblAddress = new JLabel("Address: ");
+        lblAddress = new JLabel("Address: ",SwingConstants.RIGHT);
         txtAddress = new JTextField();
 
         btnSubmit = new JButton("Submit");
@@ -143,6 +143,7 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
+
         new AddEmployeeGui().setGui();
     }
 
