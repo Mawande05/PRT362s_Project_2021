@@ -21,7 +21,7 @@ public class Dashboard extends JFrame {
 
     public Dashboard() {
 
-        super("Dashboard");
+        super("Restaurant Management System");
         this.setContentPane(this.mainPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginRegForm extends JFrame{
+public class LoginRegistrationForm extends JFrame{
 
     private JPanel mainPanel;
     private JButton cancelButton;
@@ -25,9 +25,9 @@ public class LoginRegForm extends JFrame{
     private JPanel fieldPanel;
     private JPanel buttonPanel;
 
-    public LoginRegForm() {
+    public LoginRegistrationForm() {
 
-        super("Register");
+        super("Restaurant Management System");
         this.setContentPane(this.mainPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();

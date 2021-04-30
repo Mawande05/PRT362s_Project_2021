@@ -25,7 +25,7 @@ public class Login extends JFrame {
 
     public Login() {
 
-        super("Login");
+        super("Restaurant Management System");
         this.setContentPane(this.mainPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
@@ -55,8 +55,8 @@ public class Login extends JFrame {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoginRegForm loginRegForm = new LoginRegForm();
-                loginRegForm.show();
+                LoginRegistrationForm loginRegistrationForm = new LoginRegistrationForm();
+                loginRegistrationForm.show();
                 dispose();
             }
         });
