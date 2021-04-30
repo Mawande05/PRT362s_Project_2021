@@ -35,22 +35,22 @@ public class UpdateEmployee extends JFrame implements ActionListener {
 
         lblHeader = new JLabel("Update employee");
 
-        lblEmployeeID = new JLabel("Employee ID: ");
+        lblEmployeeID = new JLabel("Employee ID: ",SwingConstants.RIGHT);
         txtEmployeeID = new JTextField();
 
-        lblFirstName = new JLabel("First Name: ");
+        lblFirstName = new JLabel("First Name: ",SwingConstants.RIGHT);
         txtFirstName = new JTextField();
 
-        lblLastName = new JLabel("Last Name: ");
+        lblLastName = new JLabel("Last Name: ",SwingConstants.RIGHT);
         txtLastName = new JTextField();
 
-        lblPhoneNumber = new JLabel("Phone Number: ");
+        lblPhoneNumber = new JLabel("Phone Number: ",SwingConstants.RIGHT);
         txtPhoneNumber = new JTextField();
 
-        lblEmail = new JLabel("Email: ");
+        lblEmail = new JLabel("Email: ",SwingConstants.RIGHT);
         txtEmail = new JTextField();
 
-        lblAddress = new JLabel("Address: ");
+        lblAddress = new JLabel("Address: ",SwingConstants.RIGHT);
         txtAddress = new JTextField();
 
         btnUpdate = new JButton("Update");
