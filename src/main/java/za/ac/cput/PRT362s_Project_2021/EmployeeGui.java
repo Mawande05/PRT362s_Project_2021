@@ -3,6 +3,9 @@ import za.ac.cput.PRT362s_Project_2021.Employee.Employee;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import javax.swing.*;
 
 public class EmployeeGui implements ActionListener {
@@ -40,6 +43,7 @@ public class EmployeeGui implements ActionListener {
         ft2 = new Font("Arial", Font.PLAIN, 22);
 
     }
+
     public void setGUI() {
         panelNorth.setLayout(new FlowLayout());
         panelEast.setPreferredSize(new Dimension(700, 130));
@@ -100,6 +104,9 @@ public class EmployeeGui implements ActionListener {
         txtSalary.setText(" ");
         txtId.requestFocus();
     }
+
+
+
     public boolean isValid() {
         boolean valid = true;
 
@@ -129,29 +136,45 @@ public class EmployeeGui implements ActionListener {
 
         return valid;
     }
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnAdd) {
-            if (!isValid()) {
-                return;
-            }
-            Employee p = new Employee(txtId.getText(), txtName.getText(), txtDepartment.getText(), Double.parseDouble(txtSalary.getText()));
-            if (p.saveToFile()) {
-                JOptionPane.showMessageDialog(mainframe, "Success: The Employee has been added", "Status", JOptionPane.INFORMATION_MESSAGE);
-                clear();
-            } else {
-                JOptionPane.showMessageDialog(mainframe, "Warning: The Employee has not been added", "Status", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (e.getSource() == btnUpdate) {
-            clear();
-        } else if (e.getSource() == btnDelete) {
-            System.exit(0);
-        }
-    }
 
+    public void actionPerformed(ActionEvent e) {
+        btnAdd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                String value1 = txtId.getText();
+                String value2 = txtName.getText();
+                String value3 = txtDepartment.getText();
+                String value4 = txtSalary.getText();
+                Connection con = null;
+                String url = "jdbc:mysql://localhost:3306/";
+                String db = "test";
+                String driver = "com.mysql.jdbc.Driver";
+                String user = "root";
+                String pass = "root";
+                System.out.println(value1 + value2 + value3 + value4);
+                try {
+                    Class.forName(driver);
+                    con = DriverManager.getConnection(url + db, user, pass);
+                    PreparedStatement st = con.prepareStatement("insert into employee(emp_id,emp_name,emp_department,salary) values(?,?,?,?)");
+                    st.setString(1, value1);
+                    st.setString(2, value2);
+                    st.setString(3, value3);
+                    st.setString(4, value4);
+                    st.executeUpdate();
+                    JOptionPane.showMessageDialog(mainframe, "Data is successfully inserted into database.");
+                    con.close();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(mainframe, "Error in submitting data!");
+                }
+            }
+        });
+
+    }
     public static void main(String[] args) {
         new EmployeeGui().setGUI();
     }
 
 }
+
+
 
 
