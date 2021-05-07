@@ -55,6 +55,11 @@ public class Dashboard extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                CustomerRewardsGui m = new CustomerRewardsGui();
+                m.setSize(900,600);
+                m.setVisible(true);
+                m.setResizable(false);
+
             }
         });
         logoutButton.addActionListener(new ActionListener() {
