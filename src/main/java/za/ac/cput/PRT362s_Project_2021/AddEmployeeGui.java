@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class AddEmployeeGui extends JFrame implements ActionListener {
     private JPanel panelNorth;
@@ -69,6 +70,7 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
 
     }
     public void setGui(){
+
         panelNorth.setLayout(new FlowLayout());
         panelCenter.setLayout(new GridLayout(4,2));
         panelEast.setLayout(new GridLayout(4,2));
@@ -114,10 +116,10 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
 
         btnSubmit.setFont(font2);
         panelSouth.add(btnSubmit);
-        btnCancel.setFont(font2);
-        panelSouth.add(btnCancel);
+       btnCancel.setFont(font2);
+       panelSouth.add(btnCancel);
 
-        this.add(panelNorth, BorderLayout.NORTH);
+       this.add(panelNorth, BorderLayout.NORTH);
         this.add(panelCenter, BorderLayout.CENTER);
         this.add(panelEast,BorderLayout.EAST);
         this.add(panelSouth, BorderLayout.SOUTH);
@@ -133,6 +135,27 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event){
         if (event.getActionCommand().equals("Submit")){
+
+             String emp_Id = txtEmpId.getText();
+             String firstname = txtFirstname.getText();
+             String surname = txtSurname.getText();
+             String dateOfBirth = txtDateOfBirth.getText();
+             String phoneNumber = txtPhoneNumber.getText();
+             String address = txtAddress.getText();
+             String email = txtEmail.getText();
+//
+//            Connection connection = null;
+//            Statement statement = null;
+            int query;
+
+            try {
+                Connection  connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/employeedb","root","");
+                Statement   statement = connection.createStatement();
+                query = statement.executeUpdate("INSERT INTO employee VALUES('" + emp_Id + "', '"+ firstname + "', '" +surname + "', '"+ dateOfBirth + "', '"+ phoneNumber + "', '"+ address + "', '" + email + "')");
+            }
+            catch(SQLException sqlException) {
+                JOptionPane.showMessageDialog(null, "Error: " + sqlException);
+            }
 
 
         }else{
