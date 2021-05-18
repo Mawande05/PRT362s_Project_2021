@@ -60,6 +60,7 @@ public class Dashboard extends JFrame {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 Login login = new Login();
                 login.show();
                 dispose();

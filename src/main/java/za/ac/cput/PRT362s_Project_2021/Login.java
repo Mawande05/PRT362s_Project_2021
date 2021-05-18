@@ -3,6 +3,10 @@ package za.ac.cput.PRT362s_Project_2021;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class Login extends JFrame {
 
@@ -34,9 +38,46 @@ public class Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Dashboard dashboard = new Dashboard();
-                dashboard.show();
-                dispose();
+
+                try{
+
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/database");
+                    System.out.println("Database Connection Successful...");
+
+                    String username = textFieldUsername.getText();
+                    String password = passwordFieldPassword.getText();
+
+                    Statement statement = connect.createStatement();
+
+                    String sql = "SELECT * FROM database WHERE Username = '"+username+"' and Password = '"+password+"'";
+
+                    ResultSet result = statement.executeQuery(sql);
+
+                    if(result.next()){
+
+                        Dashboard dashboard = new Dashboard();
+                        dashboard.show();
+                        dispose();
+
+                    }
+
+                    else{
+
+                      JOptionPane.showMessageDialog(null,"Username or Password is Invalid !!!","Oops!",JOptionPane.ERROR_MESSAGE);
+
+                        textFieldUsername.setText("");
+                        passwordFieldPassword.setText("");
+
+                    }
+
+                    connect.close();
+
+                }
+                catch(Exception ex){
+                    System.out.println(ex.getMessage());
+                }
+
             }
         });
         cancelButton.addActionListener(new ActionListener() {

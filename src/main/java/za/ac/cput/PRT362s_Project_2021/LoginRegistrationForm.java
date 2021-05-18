@@ -36,6 +36,7 @@ public class LoginRegistrationForm extends JFrame{
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 textFieldFirstName.setText("");
                 textFieldLastName.setText("");
                 textFieldUsername.setText("");
@@ -47,6 +48,7 @@ public class LoginRegistrationForm extends JFrame{
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 Login login = new Login();
                 login.show();
                 dispose();
@@ -56,6 +58,7 @@ public class LoginRegistrationForm extends JFrame{
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 Dashboard dashboard = new Dashboard();
                 dashboard.show();
                 dispose();
