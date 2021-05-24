@@ -37,7 +37,7 @@ public class Dashboard extends JFrame {
         employeeManagementSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EmployeeGui employee = new Login();
+                EmployeeGui employee = new EmployeeGui();
                 employee.show();
                 dispose();
             }
@@ -53,7 +53,7 @@ public class Dashboard extends JFrame {
         tableReservationSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Reservation reserve = new Login();
+                Reservation reserve = new Reservation();
                 reserve.show();
                 dispose();
             }
@@ -62,7 +62,7 @@ public class Dashboard extends JFrame {
         loyaltyRewardsSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CustomerRewardsGui rewards = new Login();
+                CustomerRewardsGui rewards = new CustomerRewardsGui();
                 rewards.show();
                 dispose();
             }
