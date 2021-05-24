@@ -30,37 +30,51 @@ public class Dashboard extends JFrame {
         POSSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Login login = new Login();
+                login.show();
+                dispose();
             }
         });
+
         employeeManagementSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Login login = new Login();
+                login.show();
+                dispose();
             }
         });
+
         inventoryManagementSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Login login = new Login();
+                login.show();
+                dispose();
             }
         });
+
         tableReservationSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Login login = new Login();
+                login.show();
+                dispose();
             }
         });
+
         loyaltyRewardsSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Login login = new Login();
+                login.show();
+                dispose();
             }
         });
+
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 Login login = new Login();
                 login.show();
                 dispose();
