@@ -33,35 +33,41 @@ public class Dashboard extends JFrame {
 
             }
         });
+
         employeeManagementSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                EmployeeGui employee = new Login();
+                employee.show();
+                dispose();
             }
         });
+
         inventoryManagementSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
+
         tableReservationSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Reservation reserve = new Login();
+                reserve.show();
+                dispose();
             }
         });
+
         loyaltyRewardsSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                CustomerRewardsGui m = new CustomerRewardsGui();
-                m.setSize(900,600);
-                m.setVisible(true);
-                m.setResizable(false);
-
+                CustomerRewardsGui rewards = new Login();
+                rewards.show();
+                dispose();
             }
         });
+
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
