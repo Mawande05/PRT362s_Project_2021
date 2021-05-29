@@ -14,7 +14,7 @@ class EmployeeInformation {
     JTabbedPane tp;
     JLabel lblLogo,lblId, lblName, lblAddress, lblSalary,lbl5,lbl6,lbl7,lbl8,lbl9,lbl10;
     JTextField tf1,tf2,tf3,tf4,tf5,tf6,tf7,tf8,tf9,tf10;
-    JButton btnSave,btnReset,btnEdit1,btnEdit2,btnDelete ;
+    JButton btnAdd,btnReset,btnEdit1,btnEdit2,btnDelete ;
 
     EmployeeInformation() {
         mainframe = new JFrame("Employee Application");
@@ -42,7 +42,7 @@ class EmployeeInformation {
         tf8 = new JTextField(12);
         tf9 = new JTextField(12);
         tf10 = new JTextField(12);
-        btnSave = new JButton(" Add ");
+        btnAdd = new JButton(" Add ");
         btnReset = new JButton(" Reset");
         btnEdit1 = new JButton(" Edit ");
         btnEdit2 = new JButton(" Save");
@@ -58,7 +58,7 @@ class EmployeeInformation {
         panel1.add(tf3);
         panel1.add(lblSalary);
         panel1.add(tf4);
-        panel1.add(btnSave);
+        panel1.add(btnAdd);
         panel1.add(btnReset);
 
         panel2.add(lbl7);
@@ -83,32 +83,30 @@ class EmployeeInformation {
                 tf4.setText("");
             }
         });
-        btnSave.addActionListener(new ActionListener() {
+        btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 String value1 = tf1.getText();
                 String value2 = tf2.getText();
                 String value3 = tf3.getText();
                 String value4 = tf4.getText();
-                Connection con = null;
-                String url = "jdbc:mysql://localhost:3306/";
-                String db = "test";
-                String driver = "com.mysql.jdbc.Driver";
-                String username = "root";
-                String password = " ";
-                System.out.println(value1 + value2 + value3 + value4);
+                String url = "jdbc:mysql://localhost:3306/employee-jdbc";
+                String user = "root";
+                String password = "";
+                int query;
+
                 try {
-                    Class.forName(driver);
-                    con = DriverManager.getConnection(url + db, username, password);
-                    PreparedStatement st = con.prepareStatement("insert into employee(emp_id,emp_name,emp_address,salary) values(?,?,?,?)");
-                    st.setString(1, value1);
-                    st.setString(2, value2);
-                    st.setString(3, value3);
-                    st.setString(4, value4);
-                    st.executeUpdate();
-                    JOptionPane.showMessageDialog(panel1, "Data is successfully inserted into database.");
-                    con.close();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(panel1, "Error in submitting data!");
+                    Connection connection = DriverManager.getConnection(url, user, password);
+                    Statement statement = connection.createStatement();
+                    query = statement.executeUpdate("INSERT INTO employee VALUES('" + value1 + "', '" + value2 + "', '" + value3 + "', '" + value4 + "')");
+                    if (query > 0) {
+                        JOptionPane.showMessageDialog(null, "Data is successfully inserted into database.");
+                        System.exit(0);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error submitting data!.");
+                        tf1.hasFocus();
+                    }
+                } catch (SQLException sqlException) {
+                    JOptionPane.showMessageDialog(null, "Error:" + sqlException);
                 }
             }
         });
@@ -118,14 +116,14 @@ class EmployeeInformation {
 
                 String value1 = tf5.getText();
                 Connection con = null;
-                String url = "jdbc:mysql://localhost:3306/";
+                String url = "jdbc:mysql://localhost:3306/employee-jdbc";
                 String db = "test";
-                String driver = "com.mysql.jdbc.Driver";
+                String driver = "com.mysql.cj.jdbc.Driver";
                 String username = "root";
                 String password = " ";
                 try {
                     Class.forName(driver);
-                    con = DriverManager.getConnection(url + db, username, password);
+                    con = DriverManager.getConnection(url ,username, password);
                     PreparedStatement st = con.prepareStatement("DELETE FROM employee WHERE emp_id = ?");
                     st.setString(1, value1);
                     st.executeUpdate();
@@ -137,7 +135,78 @@ class EmployeeInformation {
             }
         });
 
-    }
+    btnEdit1.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae){
+
+            String value1=tf7.getText();
+            String value2 = tf8.getText();
+            String value3 = tf9.getText();
+            String value4 = tf10.getText();
+            String url = "jdbc:mysql://localhost:3306/employee-jdbc";
+            String user = "root";
+            String password = "";
+            Connection connection = null;
+            Statement statement = null;
+            int ok;
+
+            try {
+                connection = DriverManager.getConnection(url, user, password);
+                statement = connection.createStatement();
+                ok = statement.executeUpdate("UPDATE employee SET emp_name='" + value2 + "', "
+                        + "emp_address='" + value3 + "', "
+                        + "salary='" + value4 + "',"
+                        + "WHERE emp_id=' "+ value1 + " ' ");
+                if (ok > 0) {
+                    JOptionPane.showMessageDialog(null, "Data is successful edited to database.");
+                    System.exit(0);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Could not edit data.");
+                    tf7.hasFocus();
+                }
+            }
+            catch(SQLException sqlException) {
+                JOptionPane.showMessageDialog(null, "Error:" + sqlException);
+
+            }
+        }
+    });
+       btnEdit2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae){
+                Connection con = null;
+                String url = "jdbc:mysql://localhost:3306/employee-jdbc";
+                String db = "test";
+                String driver = "com.mysql.cj.jdbc.Driver";
+                String user = "root";
+                String pass = " ";
+                try {
+                    int x = JOptionPane.showConfirmDialog(panel2, "Confirm edit? All data will be replaced");
+                    if (x == 0) {
+                        try {
+                            String value1 = tf7.getText();
+                            String value2 = tf8.getText();
+                            String value3 = tf9.getText();
+                            String value4 = tf10.getText();
+
+                            Class.forName(driver);
+                            con = DriverManager.getConnection(url + db, user, pass);
+                            ;
+                            Statement st = con.createStatement();
+                            st.executeUpdate("update employee set emp_name='" + value2 + "', emp_address='" + value3 + "', salary='" + value4 + "' where emp_id='" + value1 + "'");
+                            JOptionPane.showMessageDialog(panel2, "Updated successfully");
+                            con.close();
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(panel2, "Error in updating edit fields");
+                        }
+                    }
+                }
+                    catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(panel2,"Error");
+                    }
+                }
+            });
+       }
     void dis()
     {
         mainframe.getContentPane().add(tp);
