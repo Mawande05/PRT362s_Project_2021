@@ -15,8 +15,8 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
     private JLabel lblFirstname;
     private JTextField txtFirstname;
 
-    private JLabel lblSurname;
-    private JTextField txtSurname;
+    private JLabel lblLastName;
+    private JTextField txtLastName;
     private JLabel lblEmpId;
     private JTextField txtEmpId;
 
@@ -49,8 +49,8 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
 
         lblFirstname = new JLabel("First Name: ",SwingConstants.RIGHT);
         txtFirstname = new JTextField();
-        lblSurname = new JLabel("Surname: ",SwingConstants.RIGHT);
-        txtSurname = new JTextField();
+        lblLastName = new JLabel("Last Name: ",SwingConstants.RIGHT);
+        txtLastName = new JTextField();
 
         lblDateOfBirth = new JLabel("Date Of Birth: ", SwingConstants.RIGHT);
         txtDateOfBirth = new JTextField();
@@ -89,10 +89,10 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
         panelCenter.add(lblFirstname);
         panelCenter.add(txtFirstname);
 
-        lblSurname.setFont(font2);
-        txtSurname.setFont(font2);
-        panelEast.add(lblSurname);
-        panelEast.add(txtSurname);
+        lblLastName.setFont(font2);
+        txtLastName.setFont(font2);
+        panelEast.add(lblLastName);
+        panelEast.add(txtLastName);
 
         lblDateOfBirth.setFont(font2);
         txtDateOfBirth.setFont(font2);
@@ -138,20 +138,38 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
 
              String emp_Id = txtEmpId.getText();
              String firstname = txtFirstname.getText();
-             String surname = txtSurname.getText();
+             String surname = txtLastName.getText();
              String dateOfBirth = txtDateOfBirth.getText();
              String phoneNumber = txtPhoneNumber.getText();
              String address = txtAddress.getText();
              String email = txtEmail.getText();
 //
-//            Connection connection = null;
+//            Connection connection = null jdbc:mysql://localhost:3306/employeedb;
 //            Statement statement = null;
+            String url = "jdbc:mysql://localhost:3306/employeedb";
+            String user = "root";
+            String password = "";
             int query;
 
             try {
-                Connection  connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/employeedb","root","");
+                Connection  connection = DriverManager.getConnection(url,user,password);
                 Statement   statement = connection.createStatement();
-                query = statement.executeUpdate("INSERT INTO employee VALUES('" + emp_Id + "', '"+ firstname + "', '" +surname + "', '"+ dateOfBirth + "', '"+ phoneNumber + "', '"+ address + "', '" + email + "')");
+                query = statement.executeUpdate("INSERT INTO employee VALUES('" + emp_Id + "', '"+ firstname + "', '" +surname + "', '"+ dateOfBirth + "', '"+ phoneNumber + "', '"+ email + "', '" + address + "')");
+                if (query > 0) {
+                    JOptionPane.showMessageDialog(null, "Employee added to database.");
+                    txtEmpId.setText("");
+                    txtFirstname.setText("");
+                    txtLastName.setText("");
+                    txtDateOfBirth.setText("");
+                    txtPhoneNumber.setText("");
+                    txtEmail.setText("");
+                    txtAddress.setText("");
+                    txtEmpId.requestFocus();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Could not add employee.");
+                    txtEmpId.hasFocus();
+                }
             }
             catch(SQLException sqlException) {
                 JOptionPane.showMessageDialog(null, "Error: " + sqlException);
