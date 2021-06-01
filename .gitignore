@@ -1,4 +1,5 @@
 # Files To Ignore
 
 /.idea/
-*.iml
+*iml
+*xml
