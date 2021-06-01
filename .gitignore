@@ -1,0 +1,5 @@
+# Files To Ignore
+
+/.idea/
+*.iml
+*.xml
