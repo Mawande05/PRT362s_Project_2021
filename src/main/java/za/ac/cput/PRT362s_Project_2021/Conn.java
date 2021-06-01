@@ -8,7 +8,7 @@ public class Conn {
     public Conn(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql:///..","root","");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/restaurant","root","");
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -16,4 +16,6 @@ public class Conn {
             e.printStackTrace();
         }
     }
+
+
 }
