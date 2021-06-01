@@ -291,6 +291,7 @@ public class POS_GUI extends JFrame {
 
                 if(tblReceipt.getSelectedRow() != -1){
                     model.removeRow(tblReceipt.getSelectedRow());
+                    total();
                 }
             }
         });
@@ -303,6 +304,8 @@ public class POS_GUI extends JFrame {
 
                 for(int i = rowCount - 1; i >= 0; i--) {
                     model.removeRow(i);
+                    total();
+                    txtDiscount.setText("");
                 }
             }
         });
