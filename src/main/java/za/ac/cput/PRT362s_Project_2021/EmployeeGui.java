@@ -10,17 +10,18 @@ import java.util.*;
 
 class EmployeeInformation {
     JFrame mainframe;
-    JPanel panel1,panel2,panel3;
+    JPanel panel1,panel2,panel3,panel4;
     JTabbedPane tp;
     JLabel lblLogo,lblId, lblName, lblAddress, lblSalary,lbl5,lbl6,lbl7,lbl8,lbl9,lbl10;
     JTextField tf1,tf2,tf3,tf4,tf5,tf6,tf7,tf8,tf9,tf10;
-    JButton btnAdd,btnReset,btnEdit1,btnEdit2,btnDelete ;
+    JButton btnAdd,btnReset,btnEdit1,btnEdit2,btnDelete, btnSearch ;
 
     EmployeeInformation() {
         mainframe = new JFrame("Employee Application");
         panel1 = new JPanel(new GridLayout(5, 2));
         panel2 = new JPanel(new GridLayout(5, 2));
         panel3 = new JPanel(new GridLayout(2, 2));
+        panel4 = new JPanel(new GridLayout(5, 2));
         tp = new JTabbedPane();
         lblId = new JLabel("Employee ID:");
         lblName = new JLabel("Employee Name:");
@@ -47,6 +48,8 @@ class EmployeeInformation {
         btnEdit1 = new JButton(" Update ");
         btnEdit2 = new JButton(" Save");
         btnDelete = new JButton("Delete");
+        btnSearch = new JButton("Search");
+
 
         panel1.setBackground(new Color(88, 220, 204));
 
@@ -72,9 +75,24 @@ class EmployeeInformation {
         panel2.add(btnEdit1);
         panel2.add(btnEdit2);
 
+        panel4.add(lbl7);
+        panel4.add(tf7);
+        panel4.add(lbl8);
+        panel4.add(tf8);
+        panel4.add(lbl9);
+        panel4.add(tf9);
+        panel4.add(lbl10);
+        panel4.add(tf10);
+        panel4.add(btnSearch);
+
+
         panel3.add(lbl5);
         panel3.add(tf5);
         panel3.add(btnDelete);
+
+
+
+
 
         btnReset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -204,13 +222,50 @@ class EmployeeInformation {
                     }
                 }
             });
-       }
+
+        btnSearch.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae){
+
+                String value1 = tf1.getText();
+                String value2 = tf2.getText();
+                String value3 = tf3.getText();
+                String value4 = tf4.getText();
+                String url = "jdbc:mysql://localhost:3306/employee-jdbc";
+                String user = "root";
+                String password = "P@ssword2019";
+                Connection connection = null;
+
+
+
+                                try {
+                    connection = DriverManager.getConnection(url, user, password);
+                    Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM employee WHERE emp_id = '" + value1 + "'");
+                    if (resultSet.next()) {
+                        tf1.setText(resultSet.getString("Id"));
+                        tf2.setText(resultSet.getString("Name"));
+                        tf3.setText(resultSet.getString("department"));
+                        tf3.setText(resultSet.getString("salary"));
+
+                    } else
+                        JOptionPane.showMessageDialog(null, "Employee record not found");
+                } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(panel2, "Error in updating edit fields");
+                        }
+            }
+        });
+    }
+
+
+
+
     void dis()
     {
         mainframe.getContentPane().add(tp);
         tp.addTab("Add Record",panel1);
         tp.addTab("Edit Record",panel2);
         tp.addTab("Delete Record",panel3);
+        tp.addTab("Search",panel4);
 
         mainframe.setSize(450,280);
         mainframe.setVisible(true);
