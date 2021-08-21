@@ -12,8 +12,8 @@ class EmployeeInformation {
     JFrame mainframe;
     JPanel panel1,panel2,panel3,panel4;
     JTabbedPane tp;
-    JLabel lblLogo,lblId, lblName, lblAddress, lblSalary,lbl5,lbl6,lbl7,lbl8,lbl9,lbl10;
-    JTextField tf1,tf2,tf3,tf4,tf5,tf6,tf7,tf8,tf9,tf10;
+    JLabel lblLogo,lblId, lblName, lblAddress, lblSalary,lbl5,lbl6,lbl7,lbl8,lbl9,lbl10,lbl11,lbl12,lbl13,lbl14;
+    JTextField tf1,tf2,tf3,tf4,tf5,tf6,tf7,tf8,tf9,tf10,tf11,tf12,tf13,tf14;
     JButton btnAdd,btnReset,btnEdit1,btnEdit2,btnDelete, btnSearch ;
 
     EmployeeInformation() {
@@ -21,13 +21,18 @@ class EmployeeInformation {
         panel1 = new JPanel(new GridLayout(5, 2));
         panel2 = new JPanel(new GridLayout(5, 2));
         panel3 = new JPanel(new GridLayout(2, 2));
-        panel4 = new JPanel(new GridLayout(5, 2));
+        panel4 = new JPanel(new GridLayout(5, 1));
         tp = new JTabbedPane();
         lblId = new JLabel("Employee ID:");
         lblName = new JLabel("Employee Name:");
         lblAddress = new JLabel("Employee Address:");
         lblSalary = new JLabel("Salary:");
         lbl5 = new JLabel("Enter Employee ID to delete record:");
+
+        lbl11 = new JLabel("Employee ID:");
+        lbl12 = new JLabel("Employee Name:");
+        lbl13 = new JLabel("Employee Address:");
+        lbl14 = new JLabel("Salary:");
 
         lbl7 = new JLabel("Employee ID:");
         lbl8 = new JLabel("Employee Name:");
@@ -43,6 +48,10 @@ class EmployeeInformation {
         tf8 = new JTextField(12);
         tf9 = new JTextField(12);
         tf10 = new JTextField(12);
+        tf11 = new JTextField(12);
+        tf12 = new JTextField(12);
+        tf13 = new JTextField(12);
+        tf14 = new JTextField(12);
         btnAdd = new JButton(" Add ");
         btnReset = new JButton(" Reset");
         btnEdit1 = new JButton(" Update ");
@@ -75,14 +84,15 @@ class EmployeeInformation {
         panel2.add(btnEdit1);
         panel2.add(btnEdit2);
 
-        panel4.add(lbl7);
-        panel4.add(tf7);
-        panel4.add(lbl8);
-        panel4.add(tf8);
-        panel4.add(lbl9);
-        panel4.add(tf9);
-        panel4.add(lbl10);
-        panel4.add(tf10);
+
+        panel4.add(lbl11);
+        panel4.add(tf11);
+        panel4.add(lbl12);
+        panel4.add(tf12);
+        panel4.add(lbl13);
+        panel4.add(tf13);
+        panel4.add(lbl14);
+        panel4.add(tf14);
         panel4.add(btnSearch);
 
 
@@ -189,12 +199,10 @@ class EmployeeInformation {
     });
        btnEdit2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae){
-                Connection con = null;
                 String url = "jdbc:mysql://localhost:3306/employee-jdbc";
-                String db = "test";
-                String driver = "com.mysql.cj.jdbc.Driver";
                 String user = "root";
-                String pass = "P@ssword2019 ";
+                String password = "P@ssword2019";
+                Connection con = null;
                 try {
                     int x = JOptionPane.showConfirmDialog(panel2, "Confirm edit? All data will be replaced");
                     if (x == 0) {
@@ -204,9 +212,7 @@ class EmployeeInformation {
                             String value3 = tf9.getText();
                             String value4 = tf10.getText();
 
-                            Class.forName(driver);
-                            con = DriverManager.getConnection(url + db, user, pass);
-                            ;
+                            con = DriverManager.getConnection(url,user,password);
                             Statement st = con.createStatement();
                             st.executeUpdate("update employee set emp_name='" + value2 + "', emp_address='" + value3 + "', salary='" + value4 + "' where emp_id='" + value1 + "'");
                             JOptionPane.showMessageDialog(panel2, "Updated successfully");
@@ -226,32 +232,34 @@ class EmployeeInformation {
         btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae){
 
-                String value1 = tf1.getText();
-                String value2 = tf2.getText();
-                String value3 = tf3.getText();
-                String value4 = tf4.getText();
+                String value1 = tf11.getText();
+                String value2 = tf12.getText();
+                String value3 = tf13.getText();
+                String value4 = tf14.getText();
                 String url = "jdbc:mysql://localhost:3306/employee-jdbc";
                 String user = "root";
                 String password = "P@ssword2019";
                 Connection connection = null;
-
+                ResultSet resultSet = null;
 
 
                                 try {
                     connection = DriverManager.getConnection(url, user, password);
                     Statement statement = connection.createStatement();
-                    ResultSet resultSet = statement.executeQuery("SELECT * FROM employee WHERE emp_id = '" + value1 + "'");
+                     resultSet = statement.executeQuery("SELECT * FROM employee WHERE emp_id = '" + value1 + "'");
                     if (resultSet.next()) {
-                        tf1.setText(resultSet.getString("Id"));
-                        tf2.setText(resultSet.getString("Name"));
-                        tf3.setText(resultSet.getString("department"));
-                        tf3.setText(resultSet.getString("salary"));
 
-                    } else
-                        JOptionPane.showMessageDialog(null, "Employee record not found");
-                } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(panel2, "Error in updating edit fields");
-                        }
+                        tf12.setText(resultSet.getString("emp_name"));
+                        tf13.setText(resultSet.getString("emp_address"));
+                        tf14.setText(resultSet.getString("salary"));
+
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null,"Employee record not found");
+                                }
+                                catch(SQLException sqlException) {
+                                    JOptionPane.showMessageDialog(null, "Error: " + sqlException);
+                                }
             }
         });
     }
