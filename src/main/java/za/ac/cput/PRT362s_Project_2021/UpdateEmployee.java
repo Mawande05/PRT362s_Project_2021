@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class UpdateEmployee extends JFrame implements ActionListener {
     private JPanel panelSouth;
@@ -61,7 +62,7 @@ public class UpdateEmployee extends JFrame implements ActionListener {
     }
 
     public void setGUI(){
-        panelCenter.setLayout(new GridLayout(8,2));
+        panelCenter.setLayout(new GridLayout(4,2));
         panelSouth.setLayout(new GridLayout(1,2));
 
         lblHeader.setFont(font1);
@@ -72,16 +73,6 @@ public class UpdateEmployee extends JFrame implements ActionListener {
         txtEmployeeID.setFont(font2);
         panelCenter.add(lblEmployeeID);
         panelCenter.add(txtEmployeeID);
-
-        lblFirstName.setFont(font2);
-        txtFirstName.setFont(font2);
-        panelCenter.add(lblFirstName);
-        panelCenter.add(txtFirstName);
-
-        lblLastName.setFont(font2);
-        txtLastName.setFont(font2);
-        panelCenter.add(lblLastName);
-        panelCenter.add(txtLastName);
 
         lblPhoneNumber.setFont(font2);
         txtPhoneNumber.setFont(font2);
@@ -116,6 +107,54 @@ public class UpdateEmployee extends JFrame implements ActionListener {
     }
     public void actionPerformed(ActionEvent e){
         if (e.getActionCommand().equals("Update")){
+
+            String emp_id = txtEmployeeID.getText();
+                String firstName = txtFirstName.getText();
+                String lastName = txtLastName.getText();
+                String phoneNumber = txtPhoneNumber.getText();
+                String email = txtEmail.getText();
+                String address = txtAddress.getText();
+            String url = "jdbc:mysql://localhost:3306/employeedb";
+            String user = "root";
+            String password = "root";
+                Connection connection = null;
+                Statement statement = null;
+                int emp_Id;
+            try {
+                connection = DriverManager.getConnection(url,user,password);
+                String  query = "UPDATE employee SET phone = ?, email = ?, address = ? WHERE emp_id = "+emp_id;
+                PreparedStatement psr = connection.prepareStatement(query);
+
+
+                psr.setString(1, txtPhoneNumber.getText());
+                psr.setString(2, txtEmail.getText());
+                psr.setString(3, txtAddress.getText());
+                psr.executeUpdate();
+                JOptionPane.showMessageDialog(null,"Employee details Is Successfully Updated");
+                txtEmployeeID.setText("");
+                txtPhoneNumber.setText("");
+                txtEmail.setText("");
+                txtAddress.setText("");
+                txtEmployeeID.requestFocus();
+
+            }
+            catch(SQLException sqlException) {
+                JOptionPane.showMessageDialog(null, "Error: " + sqlException);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         }else{

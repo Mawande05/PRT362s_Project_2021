@@ -145,7 +145,7 @@ public class RemoveEmployeeGui extends JFrame implements ActionListener {
 
             String url = "jdbc:mysql://localhost:3306/employeedb";
             String user = "root";
-            String password = "";
+            String password = "root";
 
             Connection connection = null;
             Statement statement = null;
@@ -187,7 +187,7 @@ public class RemoveEmployeeGui extends JFrame implements ActionListener {
 
                 String url = "jdbc:mysql://localhost:3306/employeedb";
                 String user = "root";
-                String password = "";
+                String password = "root";
 
                 Connection connection = null;
                 ResultSet resultSet = null;

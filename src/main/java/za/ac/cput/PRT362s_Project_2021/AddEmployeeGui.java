@@ -148,7 +148,7 @@ public class AddEmployeeGui extends JFrame implements ActionListener {
 //            Statement statement = null;
             String url = "jdbc:mysql://localhost:3306/employeedb";
             String user = "root";
-            String password = "";
+            String password = "root";
             int query;
 
             try {
