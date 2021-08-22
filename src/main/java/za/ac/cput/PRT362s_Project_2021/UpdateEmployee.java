@@ -34,7 +34,7 @@ public class UpdateEmployee extends JFrame implements ActionListener {
         panelSouth = new JPanel();
         panelNorth = new JPanel();
 
-        lblHeader = new JLabel("Update employee");
+        lblHeader = new JLabel("Update employee" );
 
         lblEmployeeID = new JLabel("Employee ID: ",SwingConstants.RIGHT);
         txtEmployeeID = new JTextField();

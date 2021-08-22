@@ -60,7 +60,7 @@ public class RestaurantSystem extends JFrame implements ActionListener {
         this.add(panelEast, BorderLayout.EAST);
         this.add(panel, BorderLayout.CENTER);
 
-        btnAddEmp.addActionListener(this);
+        btnAddEmp.addActionListener( this);
         btnUpdateEmp.addActionListener(this);
         btnDeleteEmp.addActionListener(this);
         btnClose.addActionListener(this);

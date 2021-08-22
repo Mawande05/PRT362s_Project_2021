@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class AddEmployeeGui extends JFrame implements ActionListener {
+public class AddEmployeeGui extends  JFrame implements ActionListener {
     private JPanel panelNorth;
     private JPanel panelCenter,panelEast;
     private JPanel panelSouth;

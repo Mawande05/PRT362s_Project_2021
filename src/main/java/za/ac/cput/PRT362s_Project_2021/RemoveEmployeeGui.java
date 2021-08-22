@@ -154,7 +154,7 @@ public class RemoveEmployeeGui extends JFrame implements ActionListener {
             try {
                 connection = DriverManager.getConnection(url,user , password);
                 statement = connection.createStatement();
-                empID = statement.executeUpdate("DELETE FROM employee WHERE emp_id = '" + emp_Id + "'");
+                empID = statement.executeUpdate(" DELETE FROM employee WHERE emp_id = '" + emp_Id + "'");
                 JOptionPane.showMessageDialog(null,"Employee record deleted");
                 txtEmployeeID.setText("");
                 txtFirstName.setText("");
