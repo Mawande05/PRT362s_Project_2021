@@ -1,4 +1,4 @@
-package za.ac.cput.PRT362s_Project_2021;
+package za.ac.cput.PRT362s_Project_2021.Administrator;
 
 public class Employee {
     private  String emp_Id;

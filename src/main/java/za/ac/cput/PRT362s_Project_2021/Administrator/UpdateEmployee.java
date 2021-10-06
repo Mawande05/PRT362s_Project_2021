@@ -1,4 +1,4 @@
-package za.ac.cput.PRT362s_Project_2021;
+package za.ac.cput.PRT362s_Project_2021.Administrator;
 
 import javax.swing.*;
 import java.awt.*;
